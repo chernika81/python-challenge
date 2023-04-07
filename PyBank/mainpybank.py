@@ -3,7 +3,7 @@ import os
 import csv
 
 # Define the path of the csv file
-pybank_csv = os.path.join("/Users/arminearutyunyan/Desktop/python-challenge1/python-challenge/PyBank/Resources/budget_data.csv")
+pybank_csv = os.path.join("..", "Resources", "budget_data.csv")
 
 
 # Defining the variables
@@ -21,8 +21,9 @@ greatest_decrease = 0
 # Make lists to store column values
 date = []
 change_total = []
-greatest_increase_month = []
-greatest_decrease_month = []
+greatest_increase_month = "None"
+greatest_decrease_month = "None"
+
 change =[]
 
 
@@ -37,6 +38,7 @@ with open(pybank_csv) as csvfile:
     csv_header = next(csvfile)
 
     # Counting the total for date column
+    change = 0
     for row in csv_reader:
         total_months += 1
        
@@ -70,16 +72,25 @@ with open(pybank_csv) as csvfile:
 
 
 # Finding the greatest increase in profits and greatest decrease in profits
+    
+    greatest_increase_month = "None"
+    greatest_decrease_month = "None"
+    
     for change in change_total:
         if change > greatest_increase:
             greatest_increase = change
-            greatest_increase_month = row[0]
+            change_index = change_total.index(change)
+            greatest_increase_month = date[change_index]
 
+    
+    for change in change_total:
         if change < greatest_decrease:
             greatest_decrease = change
-            greatest_decrease_month = row[0]
-        
-                                      
+            change_index = change_total.index(change)
+            greatest_decrease_month = date[change_index]
+    
+
+
 
 
 # Terminal printing
